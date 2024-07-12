@@ -2,3 +2,6 @@
 	path = openair2/E2AP/flexric
 	url = https://gitlab.eurecom.fr/mosaic5g/flexric.git
 	branch = remotes/origin/mir_dev
+[submodule "custom-scripts"]
+	path = custom-scripts
+	url = git@github.com:qbiqing/openairinterfaces-custom-scripts.git
