@@ -525,6 +525,7 @@ int get_dmrs_port(int nl, uint16_t dmrs_ports)
 frame_type_t get_frame_type(uint16_t current_band, uint8_t scs_index)
 {
   frame_type_t current_type;
+  LOG_W(PHY, "get_frame_type\n");
   int32_t delta_duplex = get_delta_duplex(current_band, scs_index);
 
   if (delta_duplex == 0)
@@ -540,6 +541,8 @@ frame_type_t get_frame_type(uint16_t current_band, uint8_t scs_index)
 // Computes the duplex spacing (either positive or negative) in KHz
 int32_t get_delta_duplex(int nr_bandP, uint8_t scs_index)
 {
+  LOG_W(PHY, "get_delta_duplex\n");
+  LOG_W(PHY, "nr_bandP %d\n", nr_bandP);
   int nr_table_idx = get_nr_table_idx(nr_bandP, scs_index);
 
   int32_t delta_duplex = (nr_bandtable[nr_table_idx].ul_min - nr_bandtable[nr_table_idx].dl_min);
@@ -552,6 +555,7 @@ int32_t get_delta_duplex(int nr_bandP, uint8_t scs_index)
 // Returns the corresponding row index of the NR table
 int get_nr_table_idx(int nr_bandP, uint8_t scs_index)
 {
+  LOG_W(PHY, "nr_bandP %d\n", nr_bandP);
   int scs_khz = 15 << scs_index;
   int supplementary_bands[] = {29, 75, 76, 80, 81, 82, 83, 84, 86, 89, 95};
   for(int j = 0; j < sizeofArray(supplementary_bands); j++) {
@@ -567,7 +571,7 @@ int get_nr_table_idx(int nr_bandP, uint8_t scs_index)
   }
 
   if (i == sizeofArray(nr_bandtable)) {
-    LOG_D(PHY, "Not found same deltaf_raster == scs_khz, use only band and last deltaf_raster \n");
+    LOG_W(PHY, "Not found same deltaf_raster == scs_khz, use only band and last deltaf_raster \n");
     for(i = sizeofArray(nr_bandtable) - 1; i >= 0; i--)
        if (nr_bandtable[i].band == nr_bandP)
          break;

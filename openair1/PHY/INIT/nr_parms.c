@@ -353,6 +353,7 @@ int nr_init_frame_parms_ue(NR_DL_FRAME_PARMS *fp,
   fp->N_RB_DL = config->carrier_config.dl_grid_size[fp->numerology_index];
   fp->N_RB_SL = config->carrier_config.sl_grid_size[fp->numerology_index];
 
+  LOG_W(PHY, "nr_init_frame_parms_ue\n");
   fp->frame_type = get_frame_type(fp->nr_band, fp->numerology_index);
   int32_t uplink_frequency_offset = get_delta_duplex(fp->nr_band, fp->numerology_index);
   uplink_frequency_offset *= 1000;

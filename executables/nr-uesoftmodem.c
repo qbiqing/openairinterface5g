@@ -544,9 +544,14 @@ int main(int argc, char **argv)
       set_options(CC_id, UE[CC_id]);
       NR_UE_MAC_INST_t *mac = get_mac_inst(0);
 
+      LOG_W(PHY, "main()\n");
+      LOG_W(PHY, "sa %d\n", get_softmodem_params()->sa);
+      LOG_W(PHY, "band %d\n", get_softmodem_params()->band);
       if (get_softmodem_params()->sa) { // set frame config to initial values from command line and assume that the SSB is centered on the grid
         uint16_t nr_band = get_softmodem_params()->band;
         mac->nr_band = nr_band;
+        LOG_W(PHY, "main()\n");
+        LOG_W(PHY, "rewriting, nr_band %d\n", nr_band);
         mac->ssb_start_subcarrier = UE[CC_id]->frame_parms.ssb_start_subcarrier;
         nr_init_frame_parms_ue_sa(&UE[CC_id]->frame_parms,
                                   downlink_frequency[CC_id][0],
