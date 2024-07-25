@@ -578,7 +578,7 @@ int get_nr_table_idx(int nr_bandP, uint8_t scs_index)
   }
 
   AssertFatal(i >= 0 && i < sizeofArray(nr_bandtable), "band is not existing: %d\n", nr_bandP);
-  LOG_W(PHY,
+  LOG_D(PHY,
         "NR band table index %d (Band %d, dl_min %lu, ul_min %lu)\n",
          i,
          nr_bandtable[i].band,

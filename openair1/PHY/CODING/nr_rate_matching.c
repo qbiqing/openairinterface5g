@@ -455,6 +455,9 @@ int nr_rate_matching_ldpc(uint32_t Tbslbrm,
   printf("nr_rate_matching_ldpc: E %u, F %u, Foffset %u, k0 %u, Ncb %u, rvidx %d, Tbslbrm %u\n", E, F, Foffset,ind, Ncb, rvidx, Tbslbrm);
 #endif
 
+  // Normal case
+  LOG_W(PHY,"nr_rate_matching_ldpc, Foffset %d, E %d\n", Foffset, E);
+  
   if (Foffset > E) {
     LOG_E(PHY,"nr_rate_matching: invalid parameters (Foffset %d > E %d) F %d, k0 %d, Ncb %d, rvidx %d, Tbslbrm %d\n",Foffset,E,F, ind, Ncb, rvidx, Tbslbrm);
     return -1;
