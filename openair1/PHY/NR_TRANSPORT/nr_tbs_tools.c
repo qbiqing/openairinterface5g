@@ -45,7 +45,7 @@ uint32_t nr_get_G(uint16_t nb_rb,
   uint32_t G = ((NR_NB_SC_PER_RB * nb_symb_sch) - (nb_re_dmrs * length_dmrs)) * nb_rb * Qm * Nl;
   G -= unav_res * Qm * Nl;
 
-  LOG_W(PHY, "nr_get_G nb_symb_sch %d, nb_re_dmrs %d, length_dmrs %d, nb_rb %d, Qm %d, Nl %d, unav_res %d\n", nb_symb_sch,nb_re_dmrs,length_dmrs,nb_rb,Qm,Nl,unav_res);
+  // LOG_W(PHY, "nr_get_G nb_symb_sch %d, nb_re_dmrs %d, length_dmrs %d, nb_rb %d, Qm %d, Nl %d, unav_res %d\n", nb_symb_sch,nb_re_dmrs,length_dmrs,nb_rb,Qm,Nl,unav_res);
   return(G);
 }
 
@@ -60,6 +60,6 @@ uint32_t nr_get_E(uint32_t G, uint8_t C, uint8_t Qm, uint8_t Nl, uint8_t r) {
   else
       E = Nl*Qm*((G/(Nl*Qm*Cprime))+1);
 
-  LOG_W(PHY,"nr_get_E : (G %d, C %d, Qm %d, Nl %d, r %d), E %d\n",G, C, Qm, Nl, r, E);
+  // LOG_W(PHY,"nr_get_E : (G %d, C %d, Qm %d, Nl %d, r %d), E %d\n",G, C, Qm, Nl, r, E);
   return E;
 }
