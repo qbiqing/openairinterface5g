@@ -525,7 +525,6 @@ int get_dmrs_port(int nl, uint16_t dmrs_ports)
 frame_type_t get_frame_type(uint16_t current_band, uint8_t scs_index)
 {
   frame_type_t current_type;
-  LOG_W(PHY, "get_frame_type\n");
   int32_t delta_duplex = get_delta_duplex(current_band, scs_index);
 
   if (delta_duplex == 0)
@@ -541,8 +540,6 @@ frame_type_t get_frame_type(uint16_t current_band, uint8_t scs_index)
 // Computes the duplex spacing (either positive or negative) in KHz
 int32_t get_delta_duplex(int nr_bandP, uint8_t scs_index)
 {
-  LOG_W(PHY, "get_delta_duplex\n");
-  LOG_W(PHY, "nr_bandP %d\n", nr_bandP);
   int nr_table_idx = get_nr_table_idx(nr_bandP, scs_index);
 
   int32_t delta_duplex = (nr_bandtable[nr_table_idx].ul_min - nr_bandtable[nr_table_idx].dl_min);

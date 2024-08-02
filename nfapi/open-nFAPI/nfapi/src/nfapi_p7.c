@@ -4127,9 +4127,9 @@ static uint8_t unpack_dl_tti_pdsch_pdu_rel15_value(void *tlv, uint8_t **ppReadPa
     return 0;
   }
   // Add msg logging for relevant fields
-  printf("unpack_dl_tti_pdsch_pdu_rel15_value: nrOfLayers %d, nr_of_symbols %d\n",
-    value->nrOfLayers, value->NrOfSymbols
-  );
+  // printf("unpack_dl_tti_pdsch_pdu_rel15_value: nrOfLayers %d, nr_of_symbols %d\n",
+  //   value->nrOfLayers, value->NrOfSymbols
+  // );
 
   // Check pduBitMap bit 1 to pull PTRS parameters or not
   if (value->pduBitmap & 0b1) {
@@ -4960,9 +4960,9 @@ static uint8_t unpack_ul_tti_request_pusch_pdu(void *tlv, uint8_t **ppReadPacked
   printf("unpack_ul_tti_request_pusch_pdu: MCS index %d, MCS table %d, Target code rate %d, qam_mod_order %d\n",
     pusch_pdu->mcs_index, pusch_pdu->mcs_table, pusch_pdu->target_code_rate, pusch_pdu->qam_mod_order
   );
-  printf("unpack_ul_tti_request_pusch_pdu: nrOfLayers %d, nr_of_symbols %d\n",
-    pusch_pdu->nrOfLayers,pusch_pdu->nr_of_symbols
-  );
+  // printf("unpack_ul_tti_request_pusch_pdu: nrOfLayers %d, nr_of_symbols %d\n",
+  //   pusch_pdu->nrOfLayers,pusch_pdu->nr_of_symbols
+  // );
 
   // Pack Optional Data only included if indicated in pduBitmap
   switch (pusch_pdu->pdu_bit_map) {
