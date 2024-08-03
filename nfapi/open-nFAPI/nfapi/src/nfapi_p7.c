@@ -4110,9 +4110,12 @@ static uint8_t unpack_dl_tti_pdsch_pdu_rel15_value(void *tlv, uint8_t **ppReadPa
       return 0;
     }
     // Add msg logging for relevant fields
-    printf("unpack_dl_tti_pdsch_pdu_rel15_value: MCS index %d, MCS table %d, Target code rate %d, qam_mod_order %d\n",
-      value->mcsIndex[i],value->mcsTable[i],value->targetCodeRate[i],value->qamModOrder[i]
+    printf("unpack_dl_tti_pdsch_pdu_rel15_value: MCS index %d, Target code rate %d\n",
+      value->mcsIndex[i], value->targetCodeRate[i]
     );
+    // printf("unpack_dl_tti_pdsch_pdu_rel15_value: MCS index %d, MCS table %d, Target code rate %d, qam_mod_order %d\n",
+    //   value->mcsIndex[i],value->mcsTable[i],value->targetCodeRate[i],value->qamModOrder[i]
+    // );
   }
 
   if (!(pull16(ppReadPackedMsg, &value->dataScramblingId, end) && pull8(ppReadPackedMsg, &value->nrOfLayers, end)
@@ -4957,9 +4960,12 @@ static uint8_t unpack_ul_tti_request_pusch_pdu(void *tlv, uint8_t **ppReadPacked
     return 0;
 
   // Add msg logging for relevant fields
-  printf("unpack_ul_tti_request_pusch_pdu: MCS index %d, MCS table %d, Target code rate %d, qam_mod_order %d\n",
-    pusch_pdu->mcs_index, pusch_pdu->mcs_table, pusch_pdu->target_code_rate, pusch_pdu->qam_mod_order
+  printf("unpack_ul_tti_request_pusch_pdu: MCS index %d, Target code rate %d\n",
+    pusch_pdu->mcs_index, pusch_pdu->target_code_rate
   );
+  // printf("unpack_ul_tti_request_pusch_pdu: MCS index %d, MCS table %d, Target code rate %d, qam_mod_order %d\n",
+  //   pusch_pdu->mcs_index, pusch_pdu->mcs_table, pusch_pdu->target_code_rate, pusch_pdu->qam_mod_order
+  // );
   // printf("unpack_ul_tti_request_pusch_pdu: nrOfLayers %d, nr_of_symbols %d\n",
   //   pusch_pdu->nrOfLayers,pusch_pdu->nr_of_symbols
   // );
@@ -6981,7 +6987,10 @@ static uint8_t unpack_harq_indication_fdd_rel13_value(void *tlv, uint8_t **ppRea
 
 static uint8_t unpack_ul_cqi_information_value(void *tlv, uint8_t **ppReadPackedMsg, uint8_t *end) {
   nfapi_ul_cqi_information_t *value = (nfapi_ul_cqi_information_t *)tlv;
-  return (pull8(ppReadPackedMsg, &value->ul_cqi, end) &&
+  printf("Should not be printed but if for some reason you are here\n");
+  int i = pull8(ppReadPackedMsg, &value->ul_cqi, end);
+  printf("CQI value %d\n", value->ul_cqi);
+  return (i &&
           pull8(ppReadPackedMsg, &value->channel, end));
 }
 
