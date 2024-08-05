@@ -6191,7 +6191,7 @@ static uint8_t unpack_nr_rx_data_indication_body(nfapi_nr_rx_data_pdu_t *value,
         && pull8(ppReadPackedMsg, &value->ul_cqi, end) && pull16(ppReadPackedMsg, &value->timing_advance, end)
         && pull16(ppReadPackedMsg, &value->rssi, end)))
     return 0;
-  value->ul_cqi = 255;
+  value->ul_cqi = 230;
   printf("RX Data indication ul_cqi %u\n", (unsigned int)value->ul_cqi);
 
   value->pdu_length = pdu_len;
@@ -6249,7 +6249,7 @@ static uint8_t unpack_nr_crc_indication_body(nfapi_nr_crc_t *value, uint8_t **pp
         && pull16(ppReadPackedMsg, &value->rssi, end))) {
     return 0;
   }
-  value->ul_cqi = 255;
+  value->ul_cqi = 230;
   printf("CRC ul_cqi %u\n", (unsigned int)value->ul_cqi);
 
 
@@ -6464,7 +6464,7 @@ static uint8_t unpack_nr_uci_pucch_0_1(nfapi_nr_uci_pucch_pdu_format_0_1_t *valu
         && pull16(ppReadPackedMsg, &value->rssi, end)))
     return 0;
   
-  value->ul_cqi = 255;
+  value->ul_cqi = 230;
   printf("UCI PUCCH format 0,1 ul_cqi %u\n", (unsigned int)value->ul_cqi);
   if (value->pduBitmap & 0x01) { // SR
     if (!(pull8(ppReadPackedMsg, &value->sr.sr_indication, end) && pull8(ppReadPackedMsg, &value->sr.sr_confidence_level, end)))
@@ -6506,7 +6506,7 @@ static uint8_t unpack_nr_uci_pucch_2_3_4(nfapi_nr_uci_pucch_pdu_format_2_3_4_t* 
                 return 0;
 	if (!pull16(ppReadPackedMsg, &value->rssi, end))
                 return 0;
-  value->ul_cqi = 255;
+  value->ul_cqi = 230;
   printf("UCI PUCCH format 2,3,4 ul_cqi %u\n", (unsigned int)value->ul_cqi);
   value->pucch_format += 2;
 	if (value->pduBitmap & 0x01) { //SR

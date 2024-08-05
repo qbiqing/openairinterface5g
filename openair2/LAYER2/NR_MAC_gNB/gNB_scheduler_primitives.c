@@ -745,6 +745,7 @@ int get_mcs_from_bler(const NR_bler_options_t *bler_options,
   if (diff < 0) // wrap around
     diff += 1024;
 
+  // printf("get_mcs_from_bler, bler_options->max_mcs %d\n", bler_options->max_mcs);
   max_mcs = min(max_mcs, bler_options->max_mcs);
   const uint8_t old_mcs = min(bler_stats->mcs, max_mcs);
   if (diff < BLER_UPDATE_FRAME)

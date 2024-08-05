@@ -650,7 +650,7 @@ static void _nr_rx_sdu(const module_id_t gnb_mod_idP,
         T_BUFFER(sduP, sdu_lenP));
 
     UE->mac_stats.ul.total_bytes += sdu_lenP;
-    LOG_D(NR_MAC, "[gNB %d][PUSCH %d] CC_id %d %d.%d Received ULSCH sdu from PHY (rnti %04x) ul_cqi %d TA %d sduP %p, rssi %d\n",
+    LOG_W(NR_MAC, "[gNB %d][PUSCH %d] CC_id %d %d.%d Received ULSCH sdu from PHY (rnti %04x) ul_cqi %d TA %d sduP %p, rssi %d\n",
           gnb_mod_idP,
           harq_pid,
           CC_idP,
@@ -682,7 +682,7 @@ static void _nr_rx_sdu(const module_id_t gnb_mod_idP,
       UE_scheduling_control->pusch_snrx10 = ul_cqi * 5 - 640 - (txpower_calc * 10);
 
       if (UE_scheduling_control->tpc0 > 1)
-        LOG_D(NR_MAC,
+        LOG_W(NR_MAC,
               "[UE %04x] %d.%d. PUSCH TPC %d and TA %d pusch_snrx10 %d rssi %d phrx_tx_power %d PHR (1PRB) %d mcs %d, nb_rb %d\n",
               UE->rnti,
               frameP,
