@@ -4110,11 +4110,8 @@ static uint8_t unpack_dl_tti_pdsch_pdu_rel15_value(void *tlv, uint8_t **ppReadPa
       return 0;
     }
     // Add msg logging for relevant fields
-    printf("unpack_dl_tti_pdsch_pdu_rel15_value: MCS index %d, Target code rate %d\n",
-      value->mcsIndex[i], value->targetCodeRate[i]
-    );
-    // printf("unpack_dl_tti_pdsch_pdu_rel15_value: MCS index %d, MCS table %d, Target code rate %d, qam_mod_order %d\n",
-    //   value->mcsIndex[i],value->mcsTable[i],value->targetCodeRate[i],value->qamModOrder[i]
+    // printf("unpack_dl_tti_pdsch_pdu_rel15_value: MCS index %d, Target code rate %d\n",
+    //   value->mcsIndex[i], value->targetCodeRate[i]
     // );
   }
 
@@ -4129,10 +4126,6 @@ static uint8_t unpack_dl_tti_pdsch_pdu_rel15_value(void *tlv, uint8_t **ppReadPa
         && pull8(ppReadPackedMsg, &value->NrOfSymbols, end))) {
     return 0;
   }
-  // Add msg logging for relevant fields
-  // printf("unpack_dl_tti_pdsch_pdu_rel15_value: nrOfLayers %d, nr_of_symbols %d\n",
-  //   value->nrOfLayers, value->NrOfSymbols
-  // );
 
   // Check pduBitMap bit 1 to pull PTRS parameters or not
   if (value->pduBitmap & 0b1) {
@@ -6198,7 +6191,8 @@ static uint8_t unpack_nr_rx_data_indication_body(nfapi_nr_rx_data_pdu_t *value,
         && pull8(ppReadPackedMsg, &value->ul_cqi, end) && pull16(ppReadPackedMsg, &value->timing_advance, end)
         && pull16(ppReadPackedMsg, &value->rssi, end)))
     return 0;
-  printf("RX Data indication ul_cqi %d\n", value->ul_cqi);
+  value->ul_cqi = 255;
+  printf("RX Data indication ul_cqi %u\n", (unsigned int)value->ul_cqi);
 
   value->pdu_length = pdu_len;
   value->pdu = nfapi_p7_allocate(sizeof(*value->pdu) * pdu_len, config);
@@ -6255,7 +6249,8 @@ static uint8_t unpack_nr_crc_indication_body(nfapi_nr_crc_t *value, uint8_t **pp
         && pull16(ppReadPackedMsg, &value->rssi, end))) {
     return 0;
   }
-  printf("CRC ul_cqi %d\n", value->ul_cqi);
+  value->ul_cqi = 255;
+  printf("CRC ul_cqi %u\n", (unsigned int)value->ul_cqi);
 
 
   // memcpy((nfapi_nr_crc_t *)tlv,value,sizeof(nfapi_nr_crc_t));
@@ -6469,7 +6464,8 @@ static uint8_t unpack_nr_uci_pucch_0_1(nfapi_nr_uci_pucch_pdu_format_0_1_t *valu
         && pull16(ppReadPackedMsg, &value->rssi, end)))
     return 0;
   
-  printf("UCI PUCCH format 0,1 ul_cqi %d\n", value->ul_cqi);
+  value->ul_cqi = 255;
+  printf("UCI PUCCH format 0,1 ul_cqi %u\n", (unsigned int)value->ul_cqi);
   if (value->pduBitmap & 0x01) { // SR
     if (!(pull8(ppReadPackedMsg, &value->sr.sr_indication, end) && pull8(ppReadPackedMsg, &value->sr.sr_confidence_level, end)))
       return 0;
@@ -6510,7 +6506,8 @@ static uint8_t unpack_nr_uci_pucch_2_3_4(nfapi_nr_uci_pucch_pdu_format_2_3_4_t* 
                 return 0;
 	if (!pull16(ppReadPackedMsg, &value->rssi, end))
                 return 0;
-  printf("UCI PUCCH format 2,3,4 ul_cqi %d\n", value->ul_cqi);
+  value->ul_cqi = 255;
+  printf("UCI PUCCH format 2,3,4 ul_cqi %u\n", (unsigned int)value->ul_cqi);
   value->pucch_format += 2;
 	if (value->pduBitmap & 0x01) { //SR
 		if (!pull16(ppReadPackedMsg, &value->sr.sr_bit_len, end))
@@ -6621,7 +6618,10 @@ static uint8_t unpack_nr_uci_pusch(nfapi_nr_uci_pusch_pdu_t *value,
   if (!pull16(ppReadPackedMsg, &value->rssi, end))
     return 0;
   
-  printf("UCI PUSCH ul_cqi %d\n", value->ul_cqi);
+  // Change ul_cqi
+  // rand() % (65 + 1 - 0) + 0
+  value->ul_cqi = 10;
+  printf("UCI PUSCH ul_cqi %u\n", (unsigned int)value->ul_cqi);
 
   // Bit 0 not used in PUSCH PDU
   if ((value->pduBitmap >> 1) & 0x01) { // HARQ

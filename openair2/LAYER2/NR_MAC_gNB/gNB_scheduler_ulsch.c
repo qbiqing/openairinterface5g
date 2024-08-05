@@ -1817,7 +1817,7 @@ static void pf_ul(module_id_t module_id,
       sched_pusch->mcs = max_mcs;
     else {
       sched_pusch->mcs = get_mcs_from_bler(bo, stats, &sched_ctrl->ul_bler_stats, max_mcs, frame);
-      LOG_D(NR_MAC,"%d.%d starting mcs %d bleri %f\n",frame,slot,sched_pusch->mcs,sched_ctrl->ul_bler_stats.bler);
+      LOG_W(NR_MAC,"%d.%d starting mcs %d bleri %f\n",frame,slot,sched_pusch->mcs,sched_ctrl->ul_bler_stats.bler);
     }
     /* Schedule UE on SR or UL inactivity and no data (otherwise, will be scheduled
      * based on data to transmit) */
@@ -2364,6 +2364,7 @@ void nr_schedule_ulsch(module_id_t module_id, frame_t frame, sub_frame_t slot, n
     /* FAPI: PUSCH information always included */
     pusch_pdu->target_code_rate = sched_pusch->R;
     pusch_pdu->qam_mod_order = sched_pusch->Qm;
+    printf("sched_pusch mcs %u\n", (unsigned int)sched_pusch->mcs);
     pusch_pdu->mcs_index = sched_pusch->mcs;
     pusch_pdu->mcs_table = current_BWP->mcs_table;
     pusch_pdu->transform_precoding = current_BWP->transform_precoding;
