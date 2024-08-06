@@ -745,7 +745,6 @@ int get_mcs_from_bler(const NR_bler_options_t *bler_options,
   if (diff < 0) // wrap around
     diff += 1024;
 
-  // printf("get_mcs_from_bler, bler_options->max_mcs %d\n", bler_options->max_mcs);
   max_mcs = min(max_mcs, bler_options->max_mcs);
   const uint8_t old_mcs = min(bler_stats->mcs, max_mcs);
   if (diff < BLER_UPDATE_FRAME)
@@ -768,7 +767,7 @@ int get_mcs_from_bler(const NR_bler_options_t *bler_options,
   bler_stats->last_frame = frame;
   bler_stats->mcs = new_mcs;
   memcpy(bler_stats->rounds, stats->rounds, sizeof(stats->rounds));
-  LOG_W(MAC, "frame %4d MCS %d -> %d (num_dl_sched %d, num_dl_retx %d, BLER wnd %.3f avg %.6f)\n",
+  LOG_D(MAC, "frame %4d MCS %d -> %d (num_dl_sched %d, num_dl_retx %d, BLER wnd %.3f avg %.6f)\n",
         frame, old_mcs, new_mcs, num_dl_sched, num_dl_retx, bler_window, bler_stats->bler);
   return new_mcs;
 }

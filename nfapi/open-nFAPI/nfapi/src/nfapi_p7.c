@@ -6191,8 +6191,8 @@ static uint8_t unpack_nr_rx_data_indication_body(nfapi_nr_rx_data_pdu_t *value,
         && pull8(ppReadPackedMsg, &value->ul_cqi, end) && pull16(ppReadPackedMsg, &value->timing_advance, end)
         && pull16(ppReadPackedMsg, &value->rssi, end)))
     return 0;
-  value->ul_cqi = 230;
-  printf("RX Data indication ul_cqi %u\n", (unsigned int)value->ul_cqi);
+  // value->ul_cqi = 10;
+  // printf("RX Data indication ul_cqi %u\n", (unsigned int)value->ul_cqi);
 
   value->pdu_length = pdu_len;
   value->pdu = nfapi_p7_allocate(sizeof(*value->pdu) * pdu_len, config);
@@ -6464,8 +6464,8 @@ static uint8_t unpack_nr_uci_pucch_0_1(nfapi_nr_uci_pucch_pdu_format_0_1_t *valu
         && pull16(ppReadPackedMsg, &value->rssi, end)))
     return 0;
   
-  value->ul_cqi = 230;
-  printf("UCI PUCCH format 0,1 ul_cqi %u\n", (unsigned int)value->ul_cqi);
+  // value->ul_cqi = 10;
+  // printf("UCI PUCCH format 0,1 ul_cqi %u\n", (unsigned int)value->ul_cqi);
   if (value->pduBitmap & 0x01) { // SR
     if (!(pull8(ppReadPackedMsg, &value->sr.sr_indication, end) && pull8(ppReadPackedMsg, &value->sr.sr_confidence_level, end)))
       return 0;
@@ -6506,8 +6506,8 @@ static uint8_t unpack_nr_uci_pucch_2_3_4(nfapi_nr_uci_pucch_pdu_format_2_3_4_t* 
                 return 0;
 	if (!pull16(ppReadPackedMsg, &value->rssi, end))
                 return 0;
-  value->ul_cqi = 230;
-  printf("UCI PUCCH format 2,3,4 ul_cqi %u\n", (unsigned int)value->ul_cqi);
+  // value->ul_cqi = 10;
+  // printf("UCI PUCCH format 2,3,4 ul_cqi %u\n", (unsigned int)value->ul_cqi);
   value->pucch_format += 2;
 	if (value->pduBitmap & 0x01) { //SR
 		if (!pull16(ppReadPackedMsg, &value->sr.sr_bit_len, end))
@@ -6620,8 +6620,8 @@ static uint8_t unpack_nr_uci_pusch(nfapi_nr_uci_pusch_pdu_t *value,
   
   // Change ul_cqi
   // rand() % (65 + 1 - 0) + 0
-  value->ul_cqi = 10;
-  printf("UCI PUSCH ul_cqi %u\n", (unsigned int)value->ul_cqi);
+  // value->ul_cqi = 10;
+  // printf("UCI PUSCH ul_cqi %u\n", (unsigned int)value->ul_cqi);
 
   // Bit 0 not used in PUSCH PDU
   if ((value->pduBitmap >> 1) & 0x01) { // HARQ
