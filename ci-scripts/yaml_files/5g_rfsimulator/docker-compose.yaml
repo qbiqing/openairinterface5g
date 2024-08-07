@@ -81,7 +81,7 @@ services:
             timeout: 5s
             retries: 5
     oai-gnb:
-        image: oaisoftwarealliance/oai-gnb:develop
+        image: oai-gnb-local:latest
         container_name: rfsim5g-oai-gnb
         cap_drop:
             - ALL
