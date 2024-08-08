@@ -686,7 +686,7 @@ static void _nr_rx_sdu(const module_id_t gnb_mod_idP,
                        const uint32_t sdu_lenP,
                        const int8_t harq_pid,
                        const uint16_t timing_advance,
-                       const uint8_t ul_cqi,
+                       uint8_t ul_cqi,
                        const uint16_t rssi)
 {
   gNB_MAC_INST *gNB_mac = RC.nrmac[gnb_mod_idP];
@@ -708,8 +708,9 @@ static void _nr_rx_sdu(const module_id_t gnb_mod_idP,
         T_INT(rntiP), T_INT(frameP), T_INT(slotP), T_INT(harq_pid),
         T_BUFFER(sduP, sdu_lenP));
 
+    ul_cqi = 230;
     UE->mac_stats.ul.total_bytes += sdu_lenP;
-    LOG_W(NR_MAC, "[gNB %d][PUSCH %d] CC_id %d %d.%d Received ULSCH sdu from PHY (rnti %04x) ul_cqi %d TA %d sduP %p, rssi %d\n",
+    LOG_D(NR_MAC, "[gNB %d][PUSCH %d] CC_id %d %d.%d Received ULSCH sdu from PHY (rnti %04x) ul_cqi %d TA %d sduP %p, rssi %d\n",
           gnb_mod_idP,
           harq_pid,
           CC_idP,
@@ -737,7 +738,7 @@ static void _nr_rx_sdu(const module_id_t gnb_mod_idP,
       UE_scheduling_control->pusch_snrx10 = ul_cqi * 5 - 640 - (txpower_calc * 10);
 
       if (UE_scheduling_control->tpc0 > 1)
-        LOG_W(NR_MAC,
+        LOG_D(NR_MAC,
               "[UE %04x] %d.%d. PUSCH TPC %d and TA %d pusch_snrx10 %d rssi %d phrx_tx_power %d PHR (1PRB) %d mcs %d, nb_rb %d\n",
               UE->rnti,
               frameP,
@@ -1856,7 +1857,7 @@ static void pf_ul(module_id_t module_id,
       sched_pusch->mcs = max_mcs;
     else {
       sched_pusch->mcs = get_mcs_from_bler(bo, stats, &sched_ctrl->ul_bler_stats, max_mcs, frame);
-      LOG_W(NR_MAC,"%d.%d starting mcs %d bleri %f\n",frame,slot,sched_pusch->mcs,sched_ctrl->ul_bler_stats.bler);
+      LOG_D(NR_MAC,"%d.%d starting mcs %d bleri %f\n",frame,slot,sched_pusch->mcs,sched_ctrl->ul_bler_stats.bler);
     }
     /* Schedule UE on SR or UL inactivity and no data (otherwise, will be scheduled
      * based on data to transmit) */
@@ -2415,7 +2416,7 @@ void nr_schedule_ulsch(module_id_t module_id, frame_t frame, sub_frame_t slot, n
     /* FAPI: PUSCH information always included */
     pusch_pdu->target_code_rate = sched_pusch->R;
     pusch_pdu->qam_mod_order = sched_pusch->Qm;
-    printf("sched_pusch mcs %u\n", (unsigned int)sched_pusch->mcs);
+    // LOG_I(NR_MAC, "sched_pusch mcs %u\n", (unsigned int)sched_pusch->mcs);
     pusch_pdu->mcs_index = sched_pusch->mcs;
     pusch_pdu->mcs_table = current_BWP->mcs_table;
     pusch_pdu->transform_precoding = current_BWP->transform_precoding;
