@@ -805,8 +805,10 @@ static void evaluate_cqi_report(uint8_t *payload,
   }
 
   // TODO for wideband case and multiple TB
-  const int cqi_idx = sched_ctrl->CSI_report.cri_ri_li_pmi_cqi_report.wb_cqi_1tb;
+  // const int cqi_idx = sched_ctrl->CSI_report.cri_ri_li_pmi_cqi_report.wb_cqi_1tb;
   const int mcs_table = UE->current_DL_BWP.mcsTableIdx;
+  const int cqi_idx = 8;
+  // printf("cqi_idx %d\n", cqi_idx);
   sched_ctrl->dl_max_mcs = get_mcs_from_cqi(mcs_table, cqi_Table, cqi_idx);
 }
 
