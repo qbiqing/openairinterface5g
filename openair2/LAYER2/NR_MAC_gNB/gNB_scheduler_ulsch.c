@@ -686,7 +686,7 @@ static void _nr_rx_sdu(const module_id_t gnb_mod_idP,
                        const uint32_t sdu_lenP,
                        const int8_t harq_pid,
                        const uint16_t timing_advance,
-                       uint8_t ul_cqi,
+                       const uint8_t ul_cqi,
                        const uint16_t rssi)
 {
   gNB_MAC_INST *gNB_mac = RC.nrmac[gnb_mod_idP];
@@ -708,7 +708,7 @@ static void _nr_rx_sdu(const module_id_t gnb_mod_idP,
         T_INT(rntiP), T_INT(frameP), T_INT(slotP), T_INT(harq_pid),
         T_BUFFER(sduP, sdu_lenP));
 
-    ul_cqi = 230;
+    // ul_cqi = 230;
     UE->mac_stats.ul.total_bytes += sdu_lenP;
     LOG_D(NR_MAC, "[gNB %d][PUSCH %d] CC_id %d %d.%d Received ULSCH sdu from PHY (rnti %04x) ul_cqi %d TA %d sduP %p, rssi %d\n",
           gnb_mod_idP,

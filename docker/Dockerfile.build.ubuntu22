@@ -37,7 +37,8 @@ RUN /bin/sh oaienv && \
     cd cmake_targets && \
     mkdir -p log && \
     ./build_oai -c --ninja \
-      --eNB --gNB --RU --UE --nrUE \
+      # --eNB 
+      --gNB --RU --UE --nrUE \
       --build-lib "telnetsrv enbscope uescope nrscope" \
       -w USRP -t Ethernet \
       --build-e2 --cmake-opt -DXAPP_MULTILANGUAGE=OFF \
