@@ -129,7 +129,7 @@ size_t dump_mac_stats(gNB_MAC_INST *gNB, char *output, size_t strlen, bool reset
     if (stats->srs_stats[0] != '\0') {
       output += snprintf(output, end - output, "UE %04x: %s\n", UE->rnti, stats->srs_stats);
     }
-
+    output += snprintf(output, end - output, "sched_ctrl->dl_max_mcs %d\n", sched_ctrl->dl_max_mcs);
     output += snprintf(output,
                        end - output,
                        "UE %04x: dlsch_rounds ", UE->rnti);
