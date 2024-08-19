@@ -784,7 +784,6 @@ static void evaluate_cqi_report(uint8_t *payload,
                                 NR_UE_info_t *UE,
                                 uint8_t cqi_Table)
 {
-
   NR_UE_sched_ctrl_t *sched_ctrl = &UE->UE_sched_ctrl;
 
   //TODO sub-band CQI report not yet implemented
@@ -901,12 +900,15 @@ static void extract_pucch_csi_report(NR_CSI_MeasConfig_t *csi_MeasConfig,
       LOG_D(MAC,"SFN/SF:%d/%d reportQuantity type = %d\n",frame,slot,reportQuantity_type);
       switch(reportQuantity_type){
         case NR_CSI_ReportConfig__reportQuantity_PR_cri_RSRP:
+          printf("case cri_RSRP\n");
           evaluate_rsrp_report(UE,sched_ctrl,csi_report_id,payload,&cumul_bits,reportQuantity_type);
           break;
         case NR_CSI_ReportConfig__reportQuantity_PR_ssb_Index_RSRP:
+          printf("case ssb_RSRP\n");
           evaluate_rsrp_report(UE,sched_ctrl,csi_report_id,payload,&cumul_bits,reportQuantity_type);
           break;
         case NR_CSI_ReportConfig__reportQuantity_PR_cri_RI_CQI:
+          printf("case cri_RI_CQI\n");
           sched_ctrl->CSI_report.cri_ri_li_pmi_cqi_report.print_report = true;
           cri_bitlen = csi_report->csi_meas_bitlen.cri_bitlen;
           if(cri_bitlen)
@@ -921,6 +923,7 @@ static void extract_pucch_csi_report(NR_CSI_MeasConfig_t *csi_MeasConfig,
           evaluate_cqi_report(payload,csi_report,cumul_bits,r_index,UE,cqi_table);
           break;
         case NR_CSI_ReportConfig__reportQuantity_PR_cri_RI_PMI_CQI:
+          printf("case cri_RI_PMI_CQI\n");
           sched_ctrl->CSI_report.cri_ri_li_pmi_cqi_report.print_report = true;
           cri_bitlen = csi_report->csi_meas_bitlen.cri_bitlen;
           if(cri_bitlen)
@@ -938,6 +941,7 @@ static void extract_pucch_csi_report(NR_CSI_MeasConfig_t *csi_MeasConfig,
           evaluate_cqi_report(payload,csi_report,cumul_bits,r_index,UE,cqi_table);
           break;
         case NR_CSI_ReportConfig__reportQuantity_PR_cri_RI_LI_PMI_CQI:
+          printf("case cri_RI_LI_PMI_CQI\n");
           sched_ctrl->CSI_report.cri_ri_li_pmi_cqi_report.print_report = true;
           cri_bitlen = csi_report->csi_meas_bitlen.cri_bitlen;
           if(cri_bitlen)
