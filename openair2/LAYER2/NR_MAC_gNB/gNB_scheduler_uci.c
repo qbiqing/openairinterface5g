@@ -784,6 +784,7 @@ static void evaluate_cqi_report(uint8_t *payload,
                                 NR_UE_info_t *UE,
                                 uint8_t cqi_Table)
 {
+
   NR_UE_sched_ctrl_t *sched_ctrl = &UE->UE_sched_ctrl;
 
   //TODO sub-band CQI report not yet implemented
@@ -807,7 +808,6 @@ static void evaluate_cqi_report(uint8_t *payload,
   // const int cqi_idx = sched_ctrl->CSI_report.cri_ri_li_pmi_cqi_report.wb_cqi_1tb;
   const int mcs_table = UE->current_DL_BWP.mcsTableIdx;
   const int cqi_idx = 9;
-  // printf("cqi_idx %d\n", cqi_idx);
   sched_ctrl->dl_max_mcs = get_mcs_from_cqi(mcs_table, cqi_Table, cqi_idx);
 }
 
