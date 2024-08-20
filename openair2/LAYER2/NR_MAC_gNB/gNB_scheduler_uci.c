@@ -881,6 +881,7 @@ static void extract_pucch_csi_report(NR_CSI_MeasConfig_t *csi_MeasConfig,
   int cumul_bits = 0;
   int r_index = -1;
   for (int csi_report_id = 0; csi_report_id < csi_MeasConfig->csi_ReportConfigToAddModList->list.count; csi_report_id++ ) {
+    printf("csi_report_id %d\n",csi_report_id);
     nr_csi_report_t *csi_report = &UE->csi_report_template[csi_report_id];
     csi_report->nb_of_csi_ssb_report = 0;
     uint8_t cri_bitlen = 0;
